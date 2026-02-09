@@ -17,9 +17,10 @@
     <main class="content">
       <section id="auth" class="card">
         <div class="card-title">登录</div>
+        <div id="auth-error" class="auth-error" aria-live="polite"></div>
         <div class="form-grid">
-          <input id="email" type="email" placeholder="邮箱" />
-          <input id="password" type="password" placeholder="密码" />
+          <input id="email" type="email" placeholder="邮箱" autocomplete="email" />
+          <input id="password" type="password" placeholder="密码" autocomplete="current-password" />
           <div class="actions">
             <button id="signin" class="primary">登录</button>
             <button id="signup" class="secondary">注册</button>

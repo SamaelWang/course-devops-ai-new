@@ -13,6 +13,8 @@ body { margin:0; background:var(--bg); color:var(--text); font:14px -apple-syste
 .card + .card { margin-top:16px; }
 .card-title { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; font-weight:600; }
 .card-tools { display:flex; gap:8px; }
+.auth-error { font-size:13px; color:#b91c1c; margin-bottom:10px; min-height:1.2em; }
+.auth-error.visible { display:block; }
 .form-grid { display:grid; grid-template-columns:1fr; gap:12px; }
 .actions { display:flex; gap:10px; }
 input { background:#fff; border:1px solid var(--border); color:var(--text); border-radius:10px; padding:10px 12px; outline:none; }

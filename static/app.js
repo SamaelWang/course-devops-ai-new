@@ -7,9 +7,13 @@ let auth = null;
 let db = null;
 if (!GUEST) {
   const cfg = await fetch('/firebase-config').then(r => r.json());
-  const app = initializeApp(cfg);
-  auth = getAuth(app);
-  db = getFirestore(app);
+  if (!cfg || !cfg.apiKey || !cfg.projectId) {
+    console.error('Firebase config missing. Set FIREBASE_* env vars on the server.');
+  } else {
+    const app = initializeApp(cfg);
+    auth = getAuth(app);
+    db = getFirestore(app);
+  }
 }
 
 const authView = document.getElementById('auth');
@@ -98,19 +102,96 @@ const saveChat = async (question, answer, error) => {
   try { await addDoc(col, payload); } catch {}
 };
 
-document.getElementById('signin').addEventListener('click', async () => {
-  const email = emailInput.value.trim();
-  const password = passwordInput.value.trim();
-  if (!email || !password) return;
-  await signInWithEmailAndPassword(auth, email, password);
-});
+const MIN_PASSWORD_LENGTH = 6;
+const authErrorEl = document.getElementById('auth-error');
+const signinBtn = document.getElementById('signin');
+const signupBtn = document.getElementById('signup');
 
-document.getElementById('signup').addEventListener('click', async () => {
+function showAuthError(msg) {
+  authErrorEl.textContent = msg || '';
+  authErrorEl.classList.toggle('visible', !!msg);
+}
+
+function authErrorMessage(code) {
+  const map = {
+    'auth/invalid-email': '请输入有效的邮箱地址',
+    'auth/user-disabled': '该账号已被禁用',
+    'auth/user-not-found': '未找到该邮箱对应的账号，请先注册',
+    'auth/wrong-password': '密码错误',
+    'auth/invalid-credential': '邮箱或密码错误',
+    'auth/email-already-in-use': '该邮箱已被注册，请直接登录',
+    'auth/weak-password': `密码至少需要 ${MIN_PASSWORD_LENGTH} 位`,
+    'auth/operation-not-allowed': '当前未开放注册/登录，请联系管理员',
+    'auth/too-many-requests': '尝试次数过多，请稍后再试',
+    'auth/network-request-failed': '网络错误，请检查网络后重试',
+  };
+  return map[code] || (code ? `登录失败：${code}` : '请填写邮箱和密码');
+}
+
+async function doSignIn() {
+  if (!auth) {
+    showAuthError('登录服务未配置，请检查服务器环境变量或使用 ?guest=1 游客模式');
+    return;
+  }
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
-  if (!email || !password) return;
-  await createUserWithEmailAndPassword(auth, email, password);
-});
+  showAuthError('');
+  if (!email || !password) {
+    showAuthError('请填写邮箱和密码');
+    return;
+  }
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    showAuthError(authErrorMessage('auth/weak-password'));
+    return;
+  }
+  signinBtn.disabled = true;
+  signupBtn.disabled = true;
+  signinBtn.textContent = '登录中...';
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    showAuthError('');
+  } catch (err) {
+    showAuthError(authErrorMessage(err.code || ''));
+  } finally {
+    signinBtn.disabled = false;
+    signupBtn.disabled = false;
+    signinBtn.textContent = '登录';
+  }
+}
+
+async function doSignUp() {
+  if (!auth) {
+    showAuthError('注册服务未配置，请检查服务器环境变量或使用 ?guest=1 游客模式');
+    return;
+  }
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
+  showAuthError('');
+  if (!email || !password) {
+    showAuthError('请填写邮箱和密码');
+    return;
+  }
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    showAuthError(authErrorMessage('auth/weak-password'));
+    return;
+  }
+  signinBtn.disabled = true;
+  signupBtn.disabled = true;
+  signupBtn.textContent = '注册中...';
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    showAuthError('');
+  } catch (err) {
+    showAuthError(authErrorMessage(err.code || ''));
+  } finally {
+    signinBtn.disabled = false;
+    signupBtn.disabled = false;
+    signupBtn.textContent = '注册';
+  }
+}
+
+document.getElementById('signin').addEventListener('click', doSignIn);
+document.getElementById('signup').addEventListener('click', doSignUp);
 
 document.getElementById('signout').addEventListener('click', async () => {
   if (GUEST) return;
@@ -122,7 +203,7 @@ if (GUEST) {
   authView.classList.add('hidden');
   chatView.classList.remove('hidden');
   document.getElementById('signout').style.display = 'none';
-} else {
+} else if (auth) {
   onAuthStateChanged(auth, user => {
     if (user) {
       userSpan.textContent = user.email || user.uid;
@@ -136,6 +217,9 @@ if (GUEST) {
       messages.innerHTML = '';
     }
   });
+} else {
+  authView.classList.remove('hidden');
+  chatView.classList.add('hidden');
 }
 
 document.getElementById('chat-form').addEventListener('submit', async (e) => {
