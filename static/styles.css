@@ -51,33 +51,28 @@ body {
   display:flex;
   align-items:center;
   justify-content:center;
-  min-height:480px;
-  padding:48px 16px;
-  background:linear-gradient(180deg, #f2f5fc 0%, var(--bg) 100%);
+  min-height:420px;
+  padding:32px 16px;
 }
 .lark-login-card {
   width:100%;
-  max-width:408px;
+  max-width:400px;
   background:var(--card);
-  border-radius:12px;
-  box-shadow:0 8px 32px rgba(51,112,255,0.08), 0 2px 8px rgba(0,0,0,0.04);
-  padding:44px 44px 40px;
+  border-radius:8px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.06);
+  padding:40px 40px 36px;
   border:1px solid var(--border);
-  transition:box-shadow .25s ease;
-}
-.lark-login-card:hover {
-  box-shadow:0 12px 40px rgba(51,112,255,0.12), 0 4px 12px rgba(0,0,0,0.06);
 }
 .lark-login-head {
   text-align:center;
-  margin-bottom:32px;
+  margin-bottom:28px;
 }
 .lark-logo {
-  width:52px;
-  height:52px;
-  margin:0 auto 18px;
-  border-radius:14px;
-  background:linear-gradient(145deg, var(--primary) 0%, var(--primary-hover) 100%);
+  width:48px;
+  height:48px;
+  margin:0 auto 16px;
+  border-radius:12px;
+  background:var(--primary);
   color:#fff;
   font-size:18px;
   font-weight:700;
@@ -85,78 +80,69 @@ body {
   align-items:center;
   justify-content:center;
   letter-spacing:-0.5px;
-  box-shadow:0 4px 12px rgba(51,112,255,0.35);
 }
 .lark-title {
-  margin:0 0 6px;
-  font-size:24px;
+  margin:0 0 8px;
+  font-size:22px;
   font-weight:600;
   color:var(--text);
-  letter-spacing:-0.3px;
+  letter-spacing:-0.2px;
 }
 .lark-desc {
   margin:0;
   font-size:14px;
   color:var(--muted);
-  letter-spacing:0.2px;
 }
-.lark-form { display:flex; flex-direction:column; gap:22px; }
+.lark-form { display:flex; flex-direction:column; gap:20px; }
 .lark-label {
   display:block;
   font-size:14px;
   font-weight:500;
   color:var(--text);
-  margin-bottom:6px;
+  margin-bottom:4px;
 }
 .lark-input {
   width:100%;
-  height:44px;
-  padding:0 14px;
+  height:40px;
+  padding:0 12px;
   font-size:14px;
   color:var(--text);
-  background:#fafbfc;
+  background:#fff;
   border:1px solid var(--border);
-  border-radius:8px;
+  border-radius:6px;
   outline:none;
   box-sizing:border-box;
-  transition:border-color .2s, box-shadow .2s, background .2s;
+  transition:border-color .2s, box-shadow .2s;
 }
 .lark-input::placeholder { color:var(--muted); }
-.lark-input:hover {
-  border-color:#c9cdd4;
-  background:#fff;
-}
+.lark-input:hover { border-color:#c9cdd4; }
 .lark-input:focus {
   border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(51,112,255,0.15);
-  background:#fff;
+  box-shadow:0 0 0 2px rgba(51,112,255,0.2);
 }
 .lark-actions {
   display:flex;
   gap:12px;
-  margin-top:10px;
+  margin-top:8px;
 }
 .lark-btn {
   flex:1;
-  height:44px;
-  padding:0 20px;
+  height:40px;
+  padding:0 16px;
   font-size:14px;
   font-weight:500;
-  border-radius:8px;
+  border-radius:6px;
   cursor:pointer;
-  transition:background .2s, border-color .2s, color .2s, transform .15s;
+  transition:background .2s, border-color .2s, color .2s;
   border:none;
   outline:none;
 }
-.lark-btn:active:not(:disabled) { transform:scale(0.98); }
 .lark-btn-primary {
   background:var(--primary);
   color:#fff;
-  box-shadow:0 2px 8px rgba(51,112,255,0.3);
 }
 .lark-btn-primary:hover:not(:disabled) {
   background:var(--primary-hover);
-  box-shadow:0 4px 12px rgba(51,112,255,0.35);
 }
 .lark-btn-secondary {
   background:#fff;
@@ -173,11 +159,7 @@ body {
   color:#f53f3f;
   margin-bottom:12px;
   min-height:1.2em;
-  line-height:1.5;
-  padding:8px 12px;
-  background:rgba(245,63,63,0.06);
-  border-radius:6px;
-  border-left:3px solid #f53f3f;
+  line-height:1.4;
 }
 .auth-error.visible { display:block; }
 
