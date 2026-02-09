@@ -1,26 +1,178 @@
-:root { --bg:#f7f8fa; --text:#111316; --muted:#6b7280; --card:#ffffff; --border:#e5e7eb; --primary:#2b63f7; --primary-700:#204fd3; --bubble-user:#e9f0ff; --bubble-bot:#f3f4f6; }
-html,body { height: 100%; }
-body { margin:0; background:var(--bg); color:var(--text); font:14px -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"; }
+:root {
+  --bg:#f7f8fa;
+  --text:#1f2329;
+  --muted:#8f959e;
+  --card:#ffffff;
+  --border:#e5e6eb;
+  --primary:#3370ff;
+  --primary-hover:#2b5fd9;
+  --primary-700:#204fd3;
+  --bubble-user:#e9f0ff;
+  --bubble-bot:#f3f4f6;
+}
+html, body { height: 100%; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:14px -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
 .hidden { display:none; }
 .page { display:flex; flex-direction:column; min-height:100%; }
-.app-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border); background:#ffffffa6; backdrop-filter:saturate(1.8) blur(6px); position:sticky; top:0; }
+.app-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 20px;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:saturate(1.8) blur(6px);
+  position:sticky;
+  top:0;
+}
 .brand { display:flex; align-items:center; gap:10px; }
-.logo { width:28px; height:28px; border-radius:8px; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:600; }
+.logo {
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  background:var(--primary);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+}
 .title { font-weight:600; letter-spacing:0.2px; }
 .tools { display:none; }
-.content { max-width:900px; width:100%; margin:24px auto; padding:0 16px; }
+.content { max-width:900px; width:100%; margin:24px auto; padding:0 16px; flex:1; }
+
+/* Lark-style login */
+.lark-login-wrap {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:420px;
+  padding:32px 16px;
+}
+.lark-login-card {
+  width:100%;
+  max-width:400px;
+  background:var(--card);
+  border-radius:8px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.06);
+  padding:40px 40px 36px;
+  border:1px solid var(--border);
+}
+.lark-login-head {
+  text-align:center;
+  margin-bottom:28px;
+}
+.lark-logo {
+  width:48px;
+  height:48px;
+  margin:0 auto 16px;
+  border-radius:12px;
+  background:var(--primary);
+  color:#fff;
+  font-size:18px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  letter-spacing:-0.5px;
+}
+.lark-title {
+  margin:0 0 8px;
+  font-size:22px;
+  font-weight:600;
+  color:var(--text);
+  letter-spacing:-0.2px;
+}
+.lark-desc {
+  margin:0;
+  font-size:14px;
+  color:var(--muted);
+}
+.lark-form { display:flex; flex-direction:column; gap:20px; }
+.lark-label {
+  display:block;
+  font-size:14px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:4px;
+}
+.lark-input {
+  width:100%;
+  height:40px;
+  padding:0 12px;
+  font-size:14px;
+  color:var(--text);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:6px;
+  outline:none;
+  box-sizing:border-box;
+  transition:border-color .2s, box-shadow .2s;
+}
+.lark-input::placeholder { color:var(--muted); }
+.lark-input:hover { border-color:#c9cdd4; }
+.lark-input:focus {
+  border-color:var(--primary);
+  box-shadow:0 0 0 2px rgba(51,112,255,0.2);
+}
+.lark-actions {
+  display:flex;
+  gap:12px;
+  margin-top:8px;
+}
+.lark-btn {
+  flex:1;
+  height:40px;
+  padding:0 16px;
+  font-size:14px;
+  font-weight:500;
+  border-radius:6px;
+  cursor:pointer;
+  transition:background .2s, border-color .2s, color .2s;
+  border:none;
+  outline:none;
+}
+.lark-btn-primary {
+  background:var(--primary);
+  color:#fff;
+}
+.lark-btn-primary:hover:not(:disabled) {
+  background:var(--primary-hover);
+}
+.lark-btn-secondary {
+  background:#fff;
+  color:var(--text);
+  border:1px solid var(--border);
+}
+.lark-btn-secondary:hover:not(:disabled) {
+  border-color:#c9cdd4;
+  background:#f7f8fa;
+}
+.lark-btn:disabled { opacity:0.6; cursor:not-allowed; }
+.auth-error {
+  font-size:13px;
+  color:#f53f3f;
+  margin-bottom:12px;
+  min-height:1.2em;
+  line-height:1.4;
+}
+.auth-error.visible { display:block; }
+
 .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px; box-shadow:0 8px 24px rgba(0,0,0,0.08); }
 .card + .card { margin-top:16px; }
 .card-title { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; font-weight:600; }
 .card-tools { display:flex; gap:8px; }
-.auth-error { font-size:13px; color:#b91c1c; margin-bottom:10px; min-height:1.2em; }
-.auth-error.visible { display:block; }
 .form-grid { display:grid; grid-template-columns:1fr; gap:12px; }
 .actions { display:flex; gap:10px; }
-input { background:#fff; border:1px solid var(--border); color:var(--text); border-radius:10px; padding:10px 12px; outline:none; }
-button { border:1px solid var(--border); background:#fff; color:var(--text); border-radius:10px; padding:10px 14px; }
-button.primary { background:var(--primary); border-color:var(--primary); color:#0b0b0b; font-weight:600; }
-button.secondary { background:#fff; }
+input:not(.lark-input) { background:#fff; border:1px solid var(--border); color:var(--text); border-radius:10px; padding:10px 12px; outline:none; }
+button:not(.lark-btn) { border:1px solid var(--border); background:#fff; color:var(--text); border-radius:10px; padding:10px 14px; }
+button.primary:not(.lark-btn) { background:var(--primary); border-color:var(--primary); color:#fff; font-weight:600; }
+button.secondary:not(.lark-btn) { background:#fff; }
 button.ghost { background:transparent; }
 button:disabled { opacity:0.6; cursor:not-allowed; }
 .messages { border:1px solid var(--border); border-radius:12px; padding:12px; min-height:220px; max-height:520px; overflow-y:auto; background:#fff; }

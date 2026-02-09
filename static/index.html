@@ -15,15 +15,23 @@
       </div>
     </header>
     <main class="content">
-      <section id="auth" class="card">
-        <div class="card-title">登录</div>
-        <div id="auth-error" class="auth-error" aria-live="polite"></div>
-        <div class="form-grid">
-          <input id="email" type="email" placeholder="邮箱" autocomplete="email" />
-          <input id="password" type="password" placeholder="密码" autocomplete="current-password" />
-          <div class="actions">
-            <button id="signin" class="primary">登录</button>
-            <button id="signup" class="secondary">注册</button>
+      <section id="auth" class="lark-login-wrap">
+        <div class="lark-login-card">
+          <div class="lark-login-head">
+            <div class="lark-logo">RAG</div>
+            <h1 class="lark-title">登录 / 注册</h1>
+            <p class="lark-desc">使用邮箱登录或注册账号</p>
+          </div>
+          <div id="auth-error" class="auth-error" aria-live="polite"></div>
+          <div class="lark-form">
+            <label class="lark-label" for="email">邮箱</label>
+            <input id="email" class="lark-input" type="email" placeholder="请输入邮箱" autocomplete="email" />
+            <label class="lark-label" for="password">密码</label>
+            <input id="password" class="lark-input" type="password" placeholder="请输入密码（至少 6 位）" autocomplete="current-password" />
+            <div class="lark-actions">
+              <button id="signin" type="button" class="lark-btn lark-btn-primary">登录</button>
+              <button id="signup" type="button" class="lark-btn lark-btn-secondary">注册</button>
+            </div>
           </div>
         </div>
       </section>
